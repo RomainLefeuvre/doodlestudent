@@ -75,7 +75,7 @@
           </span>
         </div>
       </div>
-
+            <weather-component [weatherInput]="this.weatherInput" [zipCode]="this.poll?.location"></weather-component>
             <full-calendar #calendar [options]="options"></full-calendar>
       </ng-template>
             <ng-template pTemplate="footer">
