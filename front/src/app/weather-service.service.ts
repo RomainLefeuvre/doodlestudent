@@ -9,7 +9,6 @@ import * as moment from'moment';
 })
 export class WeatherService {
   constructor(private http: HttpClient) { }
-  private key = 'b758b8cf956740b8bff95022e6d6bc8a';
   private list=[];
 
   public  getWeatherIcon(zipCode:string,date:Date):string{
@@ -22,15 +21,10 @@ export class WeatherService {
   }
 
   public loadData(zipCode):Observable<any>{
-    const params= new HttpParams()
-    .set('key',this.key)
-    .set('postal_code',zipCode)
-    .set('country','FR')
-    return this.http.get<any>('https://api.weatherbit.io/v2.0/forecast/daily',{params:params})
+    return this.http.get<any>('/api/weather/'+zipCode)
       .pipe<any>(
         map(result =>{ 
           this.list=result.data 
-          console.log(this.list)
           return 
         })
       );
