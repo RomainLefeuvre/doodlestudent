@@ -7,12 +7,17 @@ apiEndpoints:
   api:
     host: localhost
     paths: '/ip'
+  weather:
+    host: localhost
+    paths: '/api/weather/*'
   doodle:
     host: localhost
     paths: '/api/*'
 serviceEndpoints:
   httpbin:
     url: 'https://httpbin.org'
+  weather:
+    url: 'http://localhost:8081'
   doodle:
     url: 'http://localhost:8080'
 policies:
@@ -34,6 +39,19 @@ pipelines:
       - proxy:
           - action:
               serviceEndpoint: httpbin 
+              changeOrigin: true
+  weather:
+    apiEndpoints:
+      - weather
+    policies:
+    # Uncomment `key-auth:` when instructed to in the Getting Started guide.
+    # - key-auth:
+      - log:
+          - action:
+              message: ${req.method} ${req.originalUrl} 
+      - proxy:
+          - action:
+              serviceEndpoint: weather 
               changeOrigin: true
   doodle:
     apiEndpoints:
