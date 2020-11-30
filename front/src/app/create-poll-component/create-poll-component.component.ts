@@ -26,6 +26,7 @@ export class CreatePollComponentComponent implements OnInit, AfterViewChecked{
 
   slugid: string;
   poll: Poll = {};
+  zipCode: number;
 
   events: EventInput[] = [];
   eventsfromics: EventInput[] = [];
@@ -161,7 +162,6 @@ export class CreatePollComponentComponent implements OnInit, AfterViewChecked{
 
       },
       datesSet:(info)=>{
-        console.log("début"+info.startStr+" fin"+info.endStr)
         this.weatherInput={firstDay:info.start,lastDay:info.end};
       },
       validRange: {
